@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ProfissionalController {
@@ -26,30 +25,25 @@ public class ProfissionalController {
         return "consultaProfissionais";
     }
 
+    @GetMapping("/cadastroProfissional")
+    public String showAddProfissionalPage() {
+
+        return "cadastroProfissional";  // Nome do template Thymeleaf para a página de login
+    }
+
     @PostMapping("/insereProfissionais")
-    public void addProfissional(@RequestBody ProfissionalRequestDTO data) {
+    public String addProfissional(@ModelAttribute ProfissionalRequestDTO data, Model model) {
 
         Profissional profissionalData = new Profissional(data);
         repository.save(profissionalData);
+        model.addAttribute("message", "Profissional cadastrado com sucesso!");
+        return "redirect:/consultaProfissionais";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";  // Nome do template Thymeleaf para a página de login
-    }
+    @PostMapping("/deletarProfissional")
+    public String deleteProfissional(@RequestParam Integer id) {
 
-    @PostMapping("/verifyLogin")
-    public String verifyLogin(@RequestParam String login, @RequestParam String senha, Model model) {
-        Optional<Profissional> profissionalOptional = repository.findByLoginAndSenha(login, senha);
-
-        if (profissionalOptional.isPresent()) {
-
-            model.addAttribute("profissional", profissionalOptional.get());
-            return "redirect:/consultaProfissionais";
-        } else {
-
-            model.addAttribute("error", "Login ou senha inválidos");
-            return "redirect:/login";
-        }
+        repository.deleteById(id);
+        return "redirect:/consultaProfissionais";
     }
 }
