@@ -17,14 +17,12 @@ public class Profissional {
     private Integer id_profissional;
     private String nome;
     private String cpf;
-    private String ocupacao;
     private String login;
     private String senha;
 
     public Profissional(ProfissionalRequestDTO data) {
         this.nome = data.nome();
         this.cpf = data.cpf();
-        this.ocupacao = data.ocupacao();
         this.login = data.login();
         this.senha = data.senha();
     }
