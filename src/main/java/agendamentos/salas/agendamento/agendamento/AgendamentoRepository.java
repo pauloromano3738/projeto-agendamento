@@ -1,4 +1,4 @@
-package agendamentos.salas.agendamento.Agendamento;
+package agendamentos.salas.agendamento.agendamento;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

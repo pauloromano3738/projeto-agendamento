@@ -1,4 +1,4 @@
-package agendamentos.salas.agendamento.Agendamento;
+package agendamentos.salas.agendamento.agendamento;
 
 public record AgendamentoResponseDTO(Integer id_agendamento, String status, String data) {
 

@@ -1,4 +1,4 @@
-package agendamentos.salas.agendamento.Agendamento;
+package agendamentos.salas.agendamento.agendamento;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

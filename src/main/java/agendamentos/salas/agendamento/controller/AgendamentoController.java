@@ -1,9 +1,9 @@
 package agendamentos.salas.agendamento.controller;
 
-import agendamentos.salas.agendamento.Agendamento.Agendamento;
-import agendamentos.salas.agendamento.Agendamento.AgendamentoRepository;
-import agendamentos.salas.agendamento.Agendamento.AgendamentoRequestDTO;
-import agendamentos.salas.agendamento.Agendamento.AgendamentoResponseDTO;
+import agendamentos.salas.agendamento.agendamento.Agendamento;
+import agendamentos.salas.agendamento.agendamento.AgendamentoRepository;
+import agendamentos.salas.agendamento.agendamento.AgendamentoRequestDTO;
+import agendamentos.salas.agendamento.agendamento.AgendamentoResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
