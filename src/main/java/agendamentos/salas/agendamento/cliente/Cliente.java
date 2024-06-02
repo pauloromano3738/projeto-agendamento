@@ -31,7 +31,6 @@ public class Cliente {
         this.cpf = data.cpf();
         this.idade = data.idade();
         this.telefone = data.telefone();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         this.endereco = endereco;
     }
 }

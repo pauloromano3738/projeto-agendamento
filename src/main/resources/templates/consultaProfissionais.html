@@ -16,7 +16,7 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>CPF</th>
-                        <th>Ocupação</th>
+                        <th>Disponibilidade Id</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,7 @@
                         <td th:text="${profissional.id_profissional}">ID</td>
                         <td th:text="${profissional.nome}">Nome</td>
                         <td th:text="${profissional.cpf}">CPF</td>
-                        <td th:text="${profissional.ocupacao}">Ocupação</td>
+                        <td th:text="${profissional.disponibilidade().getId_disponibilidade()}">Disponibilidade ID</td>
                     </tr>
                 </tbody>
             </table>

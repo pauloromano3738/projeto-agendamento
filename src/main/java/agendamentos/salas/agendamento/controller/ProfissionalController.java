@@ -1,5 +1,8 @@
 package agendamentos.salas.agendamento.controller;
 
+import agendamentos.salas.agendamento.disponibilidade.Disponibilidade;
+import agendamentos.salas.agendamento.disponibilidade.DisponibilidadeRepository;
+import agendamentos.salas.agendamento.disponibilidade.DisponibilidadeRequestDTO;
 import agendamentos.salas.agendamento.profissional.Profissional;
 import agendamentos.salas.agendamento.profissional.ProfissionalRepository;
 import agendamentos.salas.agendamento.profissional.ProfissionalRequestDTO;
@@ -7,20 +10,27 @@ import agendamentos.salas.agendamento.profissional.ProfissionalResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfissionalController {
 
     @Autowired
-    private ProfissionalRepository repository;
+    private DisponibilidadeRepository repositoryDisponibilidade;
+
+    @Autowired
+    private ProfissionalRepository repositoryProfissional;
 
     @GetMapping("/consultaProfissionais")
     public String getAll(Model model) {
 
-        List<ProfissionalResponseDTO> profissionalList = repository.findAll().stream().map(ProfissionalResponseDTO::new).toList();
+        List<ProfissionalResponseDTO> profissionalList = repositoryProfissional.findAll().stream().map(ProfissionalResponseDTO::new).toList();
         model.addAttribute("consultaProfissionais", profissionalList);
         return "consultaProfissionais";
     }
@@ -32,10 +42,17 @@ public class ProfissionalController {
     }
 
     @PostMapping("/insereProfissionais")
-    public String addProfissional(@ModelAttribute ProfissionalRequestDTO data, Model model) {
+    public String addProfissional(@ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional, Model model) {
 
-        Profissional profissionalData = new Profissional(data);
-        repository.save(profissionalData);
+        Disponibilidade disponibilidadeData = new Disponibilidade(dataDisponibilidade);
+        repositoryDisponibilidade.save(disponibilidadeData);
+
+        Optional<Disponibilidade> disponibilidadeOptional = repositoryDisponibilidade.findLastrowId();;
+        Disponibilidade disponibilidade = disponibilidadeOptional.get();
+
+        Profissional profissionalData = new Profissional(dataProfissional, disponibilidade);
+        repositoryProfissional.save(profissionalData);
+
         model.addAttribute("message", "Profissional cadastrado com sucesso!");
         return "redirect:/consultaProfissionais";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
@@ -43,7 +60,7 @@ public class ProfissionalController {
     @PostMapping("/deletarProfissional")
     public String deleteProfissional(@RequestParam Integer id) {
 
-        repository.deleteById(id);
+        repositoryProfissional.deleteById(id);
         return "redirect:/consultaProfissionais";
     }
 }
