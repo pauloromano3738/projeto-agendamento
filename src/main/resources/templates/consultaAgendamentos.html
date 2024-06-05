@@ -16,13 +16,21 @@
                 <th>ID</th>
                 <th>Status</th>
                 <th>Data</th>
+                <th>Hora início</th>
+                <th>Hora fim</th>
+                <th>Profissional ID</th>
+                <th>Cliente ID</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="agendamento : ${consultaAgendamentos}">
-                <td th:text="${agendamento.id_agendamento}">ID</td>
-                <td th:text="${agendamento.status}">Nome</td>
-                <td th:text="${agendamento.data}">CPF</td>
+                <td th:text="${agendamento.id_agendamento}"></td>
+                <td th:text="${agendamento.status}"></td>
+                <td th:text="${agendamento.data}"></td>
+                <td th:text="${agendamento.horaInicio}"></td>
+                <td th:text="${agendamento.horaFim}"></td>
+                <td th:text="${agendamento.profissional().getId_profissional()}"></td>
+                <td th:text="${agendamento.cliente().getId_cliente()}"></td>
             </tr>
             </tbody>
         </table>

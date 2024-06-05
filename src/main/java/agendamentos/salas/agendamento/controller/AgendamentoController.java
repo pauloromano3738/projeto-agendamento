@@ -41,7 +41,6 @@ public class AgendamentoController {
     public String getAll(Model model) {
 
         List<AgendamentoResponseDTO> agendamentoList = repositoryAgendamento.findAll().stream().map(AgendamentoResponseDTO::new).toList();
-
         model.addAttribute("consultaAgendamentos", agendamentoList);
         return "consultaAgendamentos";
     }
@@ -68,13 +67,6 @@ public class AgendamentoController {
 
     @PostMapping("/insereAgendamento")
     public String addAgendamento(@ModelAttribute AgendamentoRequestDTO data) {
-
-        System.out.println(data.status());
-        System.out.println(data.data());
-        System.out.println(data.horaInicio());
-        System.out.println(data.horaFim());
-        System.out.println(data.profissionalId());
-        System.out.println(data.clienteId());
 
         Optional<Profissional> profissionalOptional = repositoryProfissional.findById(Integer.valueOf(data.profissionalId()));
         Profissional profissional = profissionalOptional.get();

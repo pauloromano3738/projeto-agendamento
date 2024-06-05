@@ -17,6 +17,11 @@ public class LoginController {
     @Autowired
     private ProfissionalRepository repository;
 
+    @GetMapping("/")
+    public String redirectToLogin() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";  // Nome do template Thymeleaf para a página de login

@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "agendamento")
 @Entity(name = "agendamento")
 public class Agendamento {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_agendamento;
     private String status;

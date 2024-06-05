@@ -15,5 +15,4 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Inte
 
     @CacheEvict(value = "profissionais", allEntries = true)
     <S extends Profissional> S save(S entity);
-
 }
