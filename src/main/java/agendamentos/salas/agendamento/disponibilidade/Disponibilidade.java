@@ -16,13 +16,13 @@ public class Disponibilidade {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_disponibilidade;
-    private int dia_semana;
+    private String dias_semana;
     private Time horario_inicio;
     private Time horario_fim;
 
-    public Disponibilidade(DisponibilidadeRequestDTO data) {
-        this.dia_semana = data.dia_semana();
-        this.horario_inicio = data.horario_inicio();
-        this.horario_fim = data.horario_fim();
+    public Disponibilidade(DisponibilidadeRequestDTO data, String dias) {
+        this.dias_semana = dias;
+        this.horario_inicio = Time.valueOf(data.horario_inicio() + ":00");
+        this.horario_fim = Time.valueOf(data.horario_fim() + ":00");
     }
 }

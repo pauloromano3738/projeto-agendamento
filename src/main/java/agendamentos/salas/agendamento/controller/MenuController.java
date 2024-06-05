@@ -9,6 +9,6 @@ public class MenuController {
     @GetMapping("/home")
     public String showMenu() {
 
-        return "index";
+        return "testeCheck";
     }
 }

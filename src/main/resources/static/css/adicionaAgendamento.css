@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#datepicker {
+  font-size: 16px;
+  width: 100%;
+}
+
+.calendar {
+  position: absolute;
+  display: grid;
+  background-color: #212529;
+  color: white;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  max-width: 400px;
+}
+
+.calendar div:hover {
+  background-color: #0D6EFD;
+}
+
+.hidden {
+  display: none;
+}
+
+.calendar .font-weight-bold {
+  cursor: auto;
+}
+
+.calendar .font-weight-bold:hover {
+  background-color: #212529;
+}
+
+.calendar div {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar .disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar .disabled:hover {
+  background-color: #212529;
+}
+
+.calendar .selected {
+  background: #0D6EFD;
+  color: white;
+}
+
+.form-floating {
+  position: relative;
+}
+
+.form-floating input {
+  z-index: 99;
+}
+
+.form-floating label {
+  z-index: 0;
+}

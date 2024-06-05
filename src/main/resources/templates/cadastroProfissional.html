@@ -35,18 +35,54 @@
 
                 <h1 class="h3 mb-3 fw-normal text-center">Disponibilidade</h1>
 
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput5" name="dia_semana" placeholder="nameexample">
-                    <label for="floatingInput5">Dia da semana</label>
+                <div class="form-floating mb-3">
+                    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Escolher dias disponiveis
+                    </button>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Dias da semana</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="checkbox" class="btn-check" id="btn-check-1" name="segunda" value="1" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-1">Segunda-feira</label>
+                                <input type="checkbox" class="btn-check" id="btn-check-2" name="terca" value="2" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-2">Terça-feira</label>
+                                <input type="checkbox" class="btn-check" id="btn-check-3" name="quarta" value="3" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-3">Quarta-feira</label>
+                                <input type="checkbox" class="btn-check" id="btn-check-4" name="quinta" value="4" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-4">Quinta-feira</label>
+
+                                <input type="checkbox" class="btn-check" id="btn-check-5" name="sexta" value="5" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-5">Sexta-feira</label>
+                                <input type="checkbox" class="btn-check" id="btn-check-6" name="sabado" value="6" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-6">Sábado</label>
+                                <input type="checkbox" class="btn-check" id="btn-check-7" name="domingo" value="0" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btn-check-7">Domingo</label>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput6" name="horario_inicio" placeholder="nameexample">
+                    <input type="time" onfocus="this.showPicker()" class="form-control" id="floatingInput6" name="horario_inicio" placeholder="nameexample">
                     <label for="floatingInput6">horario inicio</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput7" name="horario_fim" placeholder="nameexample">
+                    <input type="time" onfocus="this.showPicker()" class="form-control" id="floatingInput7" name="horario_fim" placeholder="nameexample">
                     <label for="floatingInput7">horario fim</label>
                 </div>
 
@@ -54,5 +90,6 @@
             </form>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

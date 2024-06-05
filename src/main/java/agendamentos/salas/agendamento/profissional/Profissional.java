@@ -23,7 +23,7 @@ public class Profissional {
     private String senha;
 
     @OneToOne
-    @JoinColumn(name = "disponibilidade_id")
+    @JoinColumn(name = "Disponibilidade_id")
     private Disponibilidade disponibilidade;
 
     public Profissional(ProfissionalRequestDTO data, Disponibilidade disponibilidade) {
