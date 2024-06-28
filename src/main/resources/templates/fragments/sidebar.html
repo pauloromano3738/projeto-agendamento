@@ -19,45 +19,39 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
-                    <a th:href="@{/cadastroProfissional}" class="nav-link link-body-emphasis active">
+                    <a th:href="@{/cadastroProfissional}" class="nav-link link-body-emphasis " th:classappend="${urlCadastroProfissional} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                         Cadastrar profissional
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/consultaProfissionais}" class="nav-link link-body-emphasis" aria-current="page">
+                    <a th:href="@{/consultaProfissionais}" class="nav-link link-body-emphasis" th:classappend="${urlConsultaProfissional} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                         Consultar profissionais
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/cadastroCliente}" class="nav-link link-body-emphasis">
+                    <a th:href="@{/cadastroCliente}" class="nav-link link-body-emphasis" th:classappend="${urlCadastroCliente} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         Cadastrar cliente
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/consultaClientes}" class="nav-link link-body-emphasis">
+                    <a th:href="@{/consultaClientes}" class="nav-link link-body-emphasis" th:classappend="${urlConsultaCliente} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         Consultar cliente
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/adicionaAgendamento}" class="nav-link link-body-emphasis">
+                    <a th:href="@{/adicionaAgendamento}" class="nav-link link-body-emphasis" th:classappend="${urlAdicionaAgendamento} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                         Adicionar agendamento
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/consultarAgendamentos}" class="nav-link link-body-emphasis">
+                    <a th:href="@{/consultarAgendamentos}" class="nav-link link-body-emphasis" th:classappend="${urlConsultaAgendamento} ? 'active' : ''">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                         Consultar agendamentos
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/cadastroEndereco}" class="nav-link link-body-emphasis">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                        aaaa
                     </a>
                 </li>
             </ul>

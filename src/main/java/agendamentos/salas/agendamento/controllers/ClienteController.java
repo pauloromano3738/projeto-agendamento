@@ -7,6 +7,7 @@ import agendamentos.salas.agendamento.domain.cliente.ClienteResponseDTO;
 import agendamentos.salas.agendamento.domain.endereco.Endereco;
 import agendamentos.salas.agendamento.domain.endereco.EnderecoRepository;
 import agendamentos.salas.agendamento.domain.endereco.EnderecoRequestDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +26,18 @@ public class ClienteController {
     private EnderecoRepository repositoryEndereco;
 
     @GetMapping("/cadastroCliente")
-    public String showAddClientePage() {
+    public String showAddClientePage(HttpServletRequest request, Model model) {
 
+        model.addAttribute("urlCadastroCliente" ,request);
         return "cadastroCliente";
     }
 
     @GetMapping("/consultaClientes")
-    public String getAll(Model model) {
+    public String getAll(HttpServletRequest request, Model model) {
 
         List<ClienteResponseDTO> clienteList = repositoryCliente.findAll().stream().map(ClienteResponseDTO::new).toList();
         model.addAttribute("consultaClientes", clienteList);
+        model.addAttribute("urlConsultaCliente" ,request);
         return "consultaClientes";
     }
 
@@ -44,7 +47,7 @@ public class ClienteController {
         Endereco enderecoData = new Endereco(dataEndereco);
         repositoryEndereco.save(enderecoData);
 
-        Optional<Endereco> enderecoOptional = repositoryEndereco.findLastrowId();;
+        Optional<Endereco> enderecoOptional = repositoryEndereco.findLastrowId();
         Endereco endereco = enderecoOptional.get();
 
         Cliente clienteData = new Cliente(dataCliente, endereco);

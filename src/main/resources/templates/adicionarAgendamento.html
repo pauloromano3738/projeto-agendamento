@@ -8,58 +8,58 @@
     <link th:href="@{/css/adicionaAgendamento.css}" rel="stylesheet">
 </head>
 <body>
-<main class="d-flex flex-nowrap vh-100">
-    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    <main class="d-flex flex-nowrap vh-100">
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
-    <div class="form-signin container align-content-center">
-        <form action="/insereAgendamento" method="post">
-            <h1 class="h3 mb-3 fw-normal text-center">Agendamento</h1>
+        <div class="form-signin container align-content-center">
+            <form action="/insereAgendamento" method="post">
+                <h1 class="h3 mb-3 fw-normal text-center">Agendamento</h1>
 
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput1" name="status" placeholder="nameexample">
-                <label for="floatingInput1">Status</label>
-            </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput1" name="status" placeholder="nameexample">
+                    <label for="floatingInput1">Status</label>
+                </div>
 
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput2" name="data" placeholder="nameexample" readonly>
-                <input type="hidden" id="diasDisponibilidade" th:value="${diasDisponibilidade}">
-                <label for="floatingInput2">Data</label>
-                <div id="calendar" class="calendar p-3 mt-2 border rounded"></div>
-            </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput2" name="data" placeholder="nameexample" readonly>
+                    <input type="hidden" id="diasDisponibilidade" th:value="${diasDisponibilidade}">
+                    <label for="floatingInput2">Data</label>
+                    <div id="calendar" class="calendar p-3 mt-2 border rounded"></div>
+                </div>
 
-            <div class="form-floating">
-                <input type="time" class="form-control" id="floatingInput3" name="horaInicio" placeholder="nameexample">
-                <label for="floatingInput3">Hora inicio</label>
-            </div>
+                <div class="form-floating">
+                    <input type="time" class="form-control" id="floatingInput3" name="horaInicio" placeholder="nameexample">
+                    <label for="floatingInput3">Hora inicio</label>
+                </div>
 
-            <div class="form-floating">
-                <input type="time" class="form-control" id="floatingInput4" name="horaFim" placeholder="nameexample">
-                <label for="floatingInput4">Hora fim</label>
-            </div>
+                <div class="form-floating">
+                    <input type="time" class="form-control" id="floatingInput4" name="horaFim" placeholder="nameexample">
+                    <label for="floatingInput4">Hora fim</label>
+                </div>
 
-            <div class="form-floating">
-                <select class="form-select" name="profissionalId" id="profissionalId" required>
-                    <option th:each="profissional : ${consultaProfissionais}" th:value="${profissional.id_profissional}"
-                            th:text="${profissional.nome}">
-                    </option>
-                </select>
-                <label for="clienteId">Selecione um profissional</label>
-            </div>
+                <div class="form-floating">
+                    <select class="form-select" name="profissionalId" id="profissionalId" required>
+                        <option th:each="profissional : ${consultaProfissionais}" th:value="${profissional.id_profissional}"
+                                th:text="${profissional.nome}">
+                        </option>
+                    </select>
+                    <label for="clienteId">Selecione um profissional</label>
+                </div>
 
-            <div class="form-floating mb-3">
-                <select class="form-select" name="clienteId" id="clienteId" required>
-                    <option th:each="cliente : ${consultaClientes}" th:value="${cliente.id_cliente}"
-                            th:text="${cliente.nome}">
-                    </option>
-                </select>
-                <label for="clienteId">Selecione um cliente</label>
-            </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="clienteId" id="clienteId" required>
+                        <option th:each="cliente : ${consultaClientes}" th:value="${cliente.id_cliente}"
+                                th:text="${cliente.nome}">
+                        </option>
+                    </select>
+                    <label for="clienteId">Selecione um cliente</label>
+                </div>
 
 
-            <button class="btn btn-primary w-100 py-2 text-uppercase" type="submit">Adicionar</button>
-        </form>
-    </div>
-</main>
+                <button class="btn btn-primary w-100 py-2 text-uppercase" type="submit">Adicionar</button>
+            </form>
+        </div>
+    </main>
 <script th:src="@{/js/adicionaAgendamento.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

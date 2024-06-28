@@ -4,6 +4,7 @@ import agendamentos.salas.agendamento.domain.disponibilidade.Disponibilidade;
 import agendamentos.salas.agendamento.domain.disponibilidade.DisponibilidadeRepository;
 import agendamentos.salas.agendamento.domain.disponibilidade.DisponibilidadeRequestDTO;
 import agendamentos.salas.agendamento.domain.profissional.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,23 +25,22 @@ public class ProfissionalController {
     private ProfissionalRepository repositoryProfissional;
 
     @GetMapping("/consultaProfissionais")
-    public String getAll(Model model) {
+    public String getAll(HttpServletRequest request, Model model) {
 
         List<ProfissionalResponseDTO> profissionalList = repositoryProfissional.findAll().stream().map(ProfissionalResponseDTO::new).toList();
         model.addAttribute("consultaProfissionais", profissionalList);
-
+        model.addAttribute("urlConsultaProfissional" ,request);
         return "consultaProfissionais";
     }
 
     @GetMapping("/cadastroProfissional")
-    public String showAddProfissionalPage() {
-
+    public String showAddProfissionalPage(HttpServletRequest request, Model model) {
+        model.addAttribute("urlCadastroProfissional" ,request);
         return "cadastroProfissional";  // Nome do template Thymeleaf para a página de login
     }
 
     @GetMapping("/cadastroProfissional2")
     public String showAddProfissional2Page() {
-
         return "cadastroProfissional2";  // Nome do template Thymeleaf para a página de login
     }
 

@@ -12,6 +12,7 @@ import agendamentos.salas.agendamento.domain.disponibilidade.DisponibilidadeRepo
 import agendamentos.salas.agendamento.domain.profissional.Profissional;
 import agendamentos.salas.agendamento.domain.profissional.ProfissionalRepository;
 import agendamentos.salas.agendamento.domain.profissional.ProfissionalResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class AgendamentoController {
     private ProfissionalRepository repositoryProfissional;
 
     @GetMapping("/adicionaAgendamento")
-    public String showAddAgendamentoPage(Model model) {
+    public String showAddAgendamentoPage(HttpServletRequest request, Model model) {
 
         Optional<Disponibilidade> disponibilidadeOptional = repositoryDisponibilidade.findLastrowId();
         if (disponibilidadeOptional.isPresent()) {
@@ -52,14 +53,17 @@ public class AgendamentoController {
         List<ProfissionalResponseDTO> profissionalList = repositoryProfissional.findAll().stream().map(ProfissionalResponseDTO::new).toList();
         model.addAttribute("consultaProfissionais", profissionalList);
 
+        model.addAttribute("urlAdicionaAgendamento", request);
+
         return "adicionarAgendamento";  // Nome do template Thymeleaf para a página de login
     }
 
     @GetMapping("/consultarAgendamentos")
-    public String getAll(Model model) {
+    public String getAll(HttpServletRequest request, Model model) {
 
         List<AgendamentoResponseDTO> agendamentoList = repositoryAgendamento.findAll().stream().map(AgendamentoResponseDTO::new).toList();
         model.addAttribute("consultaAgendamentos", agendamentoList);
+        model.addAttribute("urlConsultaAgendamento", request);
         return "consultaAgendamentos";
     }
 
