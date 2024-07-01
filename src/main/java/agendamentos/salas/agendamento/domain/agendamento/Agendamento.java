@@ -23,11 +23,11 @@ public class Agendamento {
     private String horaInicio;
     private String horaFim;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Profissional_id")
     private Profissional profissional;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Cliente_id")
     private Cliente cliente;
 

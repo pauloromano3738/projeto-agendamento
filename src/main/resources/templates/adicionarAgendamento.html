@@ -16,7 +16,7 @@
                 <h1 class="h3 mb-3 fw-normal text-center">Agendamento</h1>
 
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput1" name="status" placeholder="nameexample">
+                    <input type="hidden" class="form-control" id="floatingInput1" name="status" value="Em Andamento" placeholder="nameexample">
                     <label for="floatingInput1">Status</label>
                 </div>
 
@@ -43,7 +43,7 @@
                                 th:text="${profissional.nome}">
                         </option>
                     </select>
-                    <label for="clienteId">Selecione um profissional</label>
+                    <label for="profissionalId">Selecione um profissional</label>
                 </div>
 
                 <div class="form-floating mb-3">

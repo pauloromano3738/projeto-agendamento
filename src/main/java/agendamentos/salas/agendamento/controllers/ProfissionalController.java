@@ -25,11 +25,18 @@ public class ProfissionalController {
     private ProfissionalRepository repositoryProfissional;
 
     @GetMapping("/consultaProfissionais")
-    public String getAll(HttpServletRequest request, Model model) {
+    public String getAll(@RequestParam(value = "idProfissional", required = false) Integer idProfissional, HttpServletRequest request, Model model) {
 
         List<ProfissionalResponseDTO> profissionalList = repositoryProfissional.findAll().stream().map(ProfissionalResponseDTO::new).toList();
         model.addAttribute("consultaProfissionais", profissionalList);
         model.addAttribute("urlConsultaProfissional" ,request);
+
+        if (idProfissional != null) {
+            Optional<Profissional> profissionalOptional = repositoryProfissional.findById(idProfissional);
+            Profissional profissional = profissionalOptional.get();
+            model.addAttribute("profissionalDetails", profissional);
+        }
+
         return "consultaProfissionais";
     }
 
@@ -74,6 +81,11 @@ public class ProfissionalController {
 
         model.addAttribute("message", "Profissional cadastrado com sucesso!");
         return "redirect:/consultaProfissionais";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+    }
+
+    @RequestMapping(value = "/consultaProfissionais/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String detailsCliente(@PathVariable Integer id) {
+        return "redirect:/consultaProfissionais?idProfissional=" + id;
     }
 
     @RequestMapping(value = "/consultaProfissionais/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})

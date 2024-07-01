@@ -59,11 +59,19 @@ public class AgendamentoController {
     }
 
     @GetMapping("/consultarAgendamentos")
-    public String getAll(HttpServletRequest request, Model model) {
+    public String getAll(@RequestParam(value = "idAgendamento", required = false) Integer idAgendamento, HttpServletRequest request, Model model) {
 
         List<AgendamentoResponseDTO> agendamentoList = repositoryAgendamento.findAll().stream().map(AgendamentoResponseDTO::new).toList();
+
         model.addAttribute("consultaAgendamentos", agendamentoList);
         model.addAttribute("urlConsultaAgendamento", request);
+
+        if (idAgendamento != null) {
+            Optional<Agendamento> agendamentoOptional = repositoryAgendamento.findById(idAgendamento);
+            Agendamento agendamento = agendamentoOptional.get();
+            model.addAttribute("agendamentoDetails", agendamento);
+        }
+
         return "consultaAgendamentos";
     }
 
@@ -79,6 +87,11 @@ public class AgendamentoController {
         Agendamento agendamentoData = new Agendamento(data, profissional, cliente);
         repositoryAgendamento.save(agendamentoData);
         return "redirect:/consultarAgendamentos";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+    }
+
+    @RequestMapping(value = "/consultarAgendamentos/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String detailsAgendamento(@PathVariable Integer id) {
+        return "redirect:/consultarAgendamentos?idAgendamento=" + id;
     }
 
     @RequestMapping(value = "/consultarAgendamentos/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})

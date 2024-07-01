@@ -33,11 +33,18 @@ public class ClienteController {
     }
 
     @GetMapping("/consultaClientes")
-    public String getAll(HttpServletRequest request, Model model) {
+    public String getAll(@RequestParam(value = "idCliente", required = false) Integer idCliente, HttpServletRequest request, Model model) {
 
         List<ClienteResponseDTO> clienteList = repositoryCliente.findAll().stream().map(ClienteResponseDTO::new).toList();
         model.addAttribute("consultaClientes", clienteList);
         model.addAttribute("urlConsultaCliente" ,request);
+
+        if (idCliente != null) {
+            Optional<Cliente> clienteOptional = repositoryCliente.findById(idCliente);
+            Cliente cliente = clienteOptional.get();
+            model.addAttribute("clienteDetails", cliente);
+        }
+
         return "consultaClientes";
     }
 
@@ -55,6 +62,11 @@ public class ClienteController {
 
         model.addAttribute("message", "Cliente cadastrado com sucesso!");
         return "redirect:/consultaClientes";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+    }
+
+    @RequestMapping(value = "/consultaClientes/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String detailsCliente(@PathVariable Integer id) {
+        return "redirect:/consultaClientes?idCliente=" + id;
     }
 
     @RequestMapping(value = "/consultaClientes/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
