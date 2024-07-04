@@ -33,7 +33,7 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
 
-                                <a th:href="@{'/consultaClientes/details/' + ${cliente.id_cliente()}}" class="btn btn-outline-primary" id="openModalLink">
+                                <a th:href="@{'/clientes/details/' + ${cliente.id_cliente()}}" class="btn btn-outline-primary" id="openModalLink">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
@@ -46,7 +46,7 @@
                                     </svg>
                                 </a>
 
-                                <a th:href="@{'/consultaClientes/delete/' + ${cliente.id_cliente()}}" class="btn btn-outline-danger" onclick="return confirm('Deseja excluir o cliente?')">
+                                <a th:href="@{'/clientes/delete/' + ${cliente.id_cliente()}}" class="btn btn-outline-danger" onclick="return confirm('Deseja excluir o cliente?')">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
                                     </svg>
@@ -74,6 +74,7 @@
                                     <p>NOME: <span th:text="${clienteDetails.nome}"></span></p>
                                     <p>IDADE: <span th:text="${clienteDetails.idade}"></span></p>
                                     <p>TELEFONE: <span th:text="${clienteDetails.telefone}"></span></p>
+                                    <hr>
                                     <p>RUA: <span th:text="${clienteDetails.getEndereco().rua}"></span></p>
                                     <p>NÚMERO: <span th:text="${clienteDetails.getEndereco().numero}"></span></p>
                                     <p>BAIRRO: <span th:text="${clienteDetails.getEndereco().bairro}"></span></p>

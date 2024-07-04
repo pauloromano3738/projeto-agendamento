@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "disponibilidade")
@@ -24,5 +27,15 @@ public class Disponibilidade {
         this.dias_semana = dias;
         this.horario_inicio = Time.valueOf(data.horario_inicio() + ":00");
         this.horario_fim = Time.valueOf(data.horario_fim() + ":00");
+    }
+
+    public String getHorario_inicio() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(horario_inicio);
+    }
+
+    public String getHorario_fim() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(horario_fim);
     }
 }

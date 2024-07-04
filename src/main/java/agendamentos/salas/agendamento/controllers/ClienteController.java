@@ -32,7 +32,7 @@ public class ClienteController {
         return "cadastroCliente";
     }
 
-    @GetMapping("/consultaClientes")
+    @GetMapping("/clientes")
     public String getAll(@RequestParam(value = "idCliente", required = false) Integer idCliente, HttpServletRequest request, Model model) {
 
         List<ClienteResponseDTO> clienteList = repositoryCliente.findAll().stream().map(ClienteResponseDTO::new).toList();
@@ -61,17 +61,17 @@ public class ClienteController {
         repositoryCliente.save(clienteData);
 
         model.addAttribute("message", "Cliente cadastrado com sucesso!");
-        return "redirect:/consultaClientes";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+        return "redirect:/clientes";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
 
-    @RequestMapping(value = "/consultaClientes/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    @RequestMapping(value = "/clientes/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String detailsCliente(@PathVariable Integer id) {
-        return "redirect:/consultaClientes?idCliente=" + id;
+        return "redirect:/clientes?idCliente=" + id;
     }
 
-    @RequestMapping(value = "/consultaClientes/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    @RequestMapping(value = "/clientes/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteCliente(@PathVariable Integer id) {
         repositoryCliente.deleteById(id);
-        return "redirect:/consultaClientes";
+        return "redirect:/clientes";
     }
 }

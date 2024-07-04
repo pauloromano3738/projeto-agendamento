@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +26,8 @@ public class ProfissionalController {
     @Autowired
     private ProfissionalRepository repositoryProfissional;
 
-    @GetMapping("/consultaProfissionais")
-    public String getAll(@RequestParam(value = "idProfissional", required = false) Integer idProfissional, HttpServletRequest request, Model model) {
+    @GetMapping("/profissionais")
+    public String getAll(@RequestParam(value = "idProfissional", required = false) Integer idProfissional, @RequestParam(value = "operation", required = false) String operation, HttpServletRequest request, Model model) {
 
         List<ProfissionalResponseDTO> profissionalList = repositoryProfissional.findAll().stream().map(ProfissionalResponseDTO::new).toList();
         model.addAttribute("consultaProfissionais", profissionalList);
@@ -35,6 +37,9 @@ public class ProfissionalController {
             Optional<Profissional> profissionalOptional = repositoryProfissional.findById(idProfissional);
             Profissional profissional = profissionalOptional.get();
             model.addAttribute("profissionalDetails", profissional);
+            if (operation != null) {
+                return "editarProfissional";
+            }
         }
 
         return "consultaProfissionais";
@@ -51,9 +56,7 @@ public class ProfissionalController {
         return "cadastroProfissional2";  // Nome do template Thymeleaf para a página de login
     }
 
-    @PostMapping("/insereProfissionais")
-    public String addProfissional(@ModelAttribute DiasRequestDTO diasDisponibilidade, @ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional, Model model) {
-
+    public String corrigeData(DiasRequestDTO diasDisponibilidade) {
         Integer[] diasArray = {
                 diasDisponibilidade.domingo(),
                 diasDisponibilidade.segunda(),
@@ -69,6 +72,13 @@ public class ProfissionalController {
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
 
+        return dias;
+    }
+
+    @PostMapping("/insereProfissionais")
+    public String addProfissional(@ModelAttribute DiasRequestDTO diasDisponibilidade, @ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional, Model model) {
+
+        String dias = corrigeData(diasDisponibilidade);
 
         Disponibilidade disponibilidadeData = new Disponibilidade(dataDisponibilidade, dias);
         repositoryDisponibilidade.save(disponibilidadeData);
@@ -80,17 +90,48 @@ public class ProfissionalController {
         repositoryProfissional.save(profissionalData);
 
         model.addAttribute("message", "Profissional cadastrado com sucesso!");
-        return "redirect:/consultaProfissionais";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+        return "redirect:/profissionais";
     }
 
-    @RequestMapping(value = "/consultaProfissionais/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String detailsCliente(@PathVariable Integer id) {
-        return "redirect:/consultaProfissionais?idProfissional=" + id;
+    @RequestMapping(value = "/insereProfissionais/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String updateProfissional(@PathVariable Integer id, @ModelAttribute DiasRequestDTO diasDisponibilidade, @ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional, Model model) {
+
+        String dias = corrigeData(diasDisponibilidade);
+
+        Optional<Profissional> profissionalOptional = repositoryProfissional.findById(id);
+        Profissional profissional = profissionalOptional.get();
+
+        Disponibilidade disponibilidade = profissional.getDisponibilidade();
+
+        profissional.setNome(dataProfissional.nome());
+        profissional.setCpf(dataProfissional.cpf());
+        profissional.setLogin(dataProfissional.login());
+        profissional.setSenha(dataProfissional.senha());
+
+        disponibilidade.setDias_semana(dias);
+        disponibilidade.setHorario_inicio(Time.valueOf(dataDisponibilidade.horario_inicio() + ":00"));
+        disponibilidade.setHorario_fim(Time.valueOf(dataDisponibilidade.horario_fim() + ":00"));
+
+        profissional.setDisponibilidade(disponibilidade);
+
+        repositoryProfissional.save(profissional);
+        return "redirect:/profissionais";
     }
 
-    @RequestMapping(value = "/consultaProfissionais/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    @RequestMapping(value = "/profissionais/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String detailsProfissional(@PathVariable Integer id) {
+        return "redirect:/profissionais?idProfissional=" + id;
+    }
+
+    @RequestMapping(value = "/profissionais/edit/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String editProfissional(@PathVariable Integer id, RedirectAttributes redirectAttributes, Model model) {
+        redirectAttributes.addAttribute("operation","edit");
+        return "redirect:/profissionais?idProfissional=" + id;
+    }
+
+    @RequestMapping(value = "/profissionais/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteProfissional(@PathVariable Integer id) {
         repositoryProfissional.deleteById(id);
-        return "redirect:/consultaProfissionais";
+        return "redirect:/profissionais";
     }
 }

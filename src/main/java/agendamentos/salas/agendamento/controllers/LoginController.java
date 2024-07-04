@@ -34,7 +34,7 @@ public class LoginController {
         if (profissionalOptional.isPresent()) {
 
             model.addAttribute("profissional", profissionalOptional.get());
-            return "redirect:/consultaProfissionais";
+            return "redirect:/profissionais";
         } else {
 
             model.addAttribute("error", "Login ou senha inválidos");

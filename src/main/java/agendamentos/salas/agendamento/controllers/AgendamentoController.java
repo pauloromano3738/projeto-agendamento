@@ -58,7 +58,7 @@ public class AgendamentoController {
         return "adicionarAgendamento";  // Nome do template Thymeleaf para a página de login
     }
 
-    @GetMapping("/consultarAgendamentos")
+    @GetMapping("/agendamentos")
     public String getAll(@RequestParam(value = "idAgendamento", required = false) Integer idAgendamento, HttpServletRequest request, Model model) {
 
         List<AgendamentoResponseDTO> agendamentoList = repositoryAgendamento.findAll().stream().map(AgendamentoResponseDTO::new).toList();
@@ -89,14 +89,14 @@ public class AgendamentoController {
         return "redirect:/consultarAgendamentos";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
 
-    @RequestMapping(value = "/consultarAgendamentos/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    @RequestMapping(value = "/agendamentos/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String detailsAgendamento(@PathVariable Integer id) {
-        return "redirect:/consultarAgendamentos?idAgendamento=" + id;
+        return "redirect:/agendamentos?idAgendamento=" + id;
     }
 
-    @RequestMapping(value = "/consultarAgendamentos/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    @RequestMapping(value = "/agendamentos/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String deleteAgendamento(@PathVariable Integer id) {
         repositoryAgendamento.deleteById(id);
-        return "redirect:/consultarAgendamentos";
+        return "redirect:/agendamentos";
     }
 }
