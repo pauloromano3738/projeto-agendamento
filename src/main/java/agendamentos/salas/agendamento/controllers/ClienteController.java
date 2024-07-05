@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class ClienteController {
     }
 
     @GetMapping("/clientes")
-    public String getAll(@RequestParam(value = "idCliente", required = false) Integer idCliente, HttpServletRequest request, Model model) {
+    public String getAll(@RequestParam(value = "idCliente", required = false) Integer idCliente, @RequestParam(value = "operation", required = false) String operation, HttpServletRequest request, Model model) {
 
         List<ClienteResponseDTO> clienteList = repositoryCliente.findAll().stream().map(ClienteResponseDTO::new).toList();
         model.addAttribute("consultaClientes", clienteList);
@@ -43,6 +44,9 @@ public class ClienteController {
             Optional<Cliente> clienteOptional = repositoryCliente.findById(idCliente);
             Cliente cliente = clienteOptional.get();
             model.addAttribute("clienteDetails", cliente);
+            if (operation != null) {
+                return "editarCliente";
+            }
         }
 
         return "consultaClientes";
@@ -64,8 +68,38 @@ public class ClienteController {
         return "redirect:/clientes";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
 
+    @RequestMapping(value = "/insereClientes/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String updateCliente(@PathVariable Integer id, @ModelAttribute EnderecoRequestDTO dataEndereco, @ModelAttribute ClienteRequestDTO dataCliente) {
+
+        Optional<Cliente> clienteOptional = repositoryCliente.findById(id);
+        Cliente cliente = clienteOptional.get();
+
+        cliente.setNome(dataCliente.nome());
+        cliente.setCpf(dataCliente.cpf());
+        cliente.setIdade(dataCliente.idade());
+        cliente.setTelefone(dataCliente.telefone());
+
+        Endereco endereco = cliente.getEndereco();
+
+        endereco.setRua(dataEndereco.rua());
+        endereco.setNumero(dataEndereco.numero());
+        endereco.setBairro(dataEndereco.bairro());
+        endereco.setComplemento(dataEndereco.complemento());
+
+        cliente.setEndereco(endereco);
+
+        repositoryCliente.save(cliente);
+        return "redirect:/clientes";
+    }
+
     @RequestMapping(value = "/clientes/details/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     public String detailsCliente(@PathVariable Integer id) {
+        return "redirect:/clientes?idCliente=" + id;
+    }
+
+    @RequestMapping(value = "/clientes/edit/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String editCliente(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("operation","edit");
         return "redirect:/clientes?idCliente=" + id;
     }
 

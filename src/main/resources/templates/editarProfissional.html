@@ -11,7 +11,7 @@
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
         <div class="form-signin container align-content-center">
             <form th:action="@{'/insereProfissionais/update/' + ${profissionalDetails.id_profissional}}" method="put">
-                <h1 class="h3 mb-3 fw-normal text-center">Editar de profissional</h1>
+                <h1 class="h3 mb-3 fw-normal text-center">Editar profissional</h1>
 
                 <div class="form-floating">
                     <input th:value="${profissionalDetails.nome}" type="text" class="form-control" id="floatingInput1" name="nome" placeholder="nameexample">

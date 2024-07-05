@@ -94,19 +94,19 @@ public class ProfissionalController {
     }
 
     @RequestMapping(value = "/insereProfissionais/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-    public String updateProfissional(@PathVariable Integer id, @ModelAttribute DiasRequestDTO diasDisponibilidade, @ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional, Model model) {
+    public String updateProfissional(@PathVariable Integer id, @ModelAttribute DiasRequestDTO diasDisponibilidade, @ModelAttribute DisponibilidadeRequestDTO dataDisponibilidade, @ModelAttribute ProfissionalRequestDTO dataProfissional) {
 
         String dias = corrigeData(diasDisponibilidade);
 
         Optional<Profissional> profissionalOptional = repositoryProfissional.findById(id);
         Profissional profissional = profissionalOptional.get();
 
-        Disponibilidade disponibilidade = profissional.getDisponibilidade();
-
         profissional.setNome(dataProfissional.nome());
         profissional.setCpf(dataProfissional.cpf());
         profissional.setLogin(dataProfissional.login());
         profissional.setSenha(dataProfissional.senha());
+
+        Disponibilidade disponibilidade = profissional.getDisponibilidade();
 
         disponibilidade.setDias_semana(dias);
         disponibilidade.setHorario_inicio(Time.valueOf(dataDisponibilidade.horario_inicio() + ":00"));
@@ -124,7 +124,7 @@ public class ProfissionalController {
     }
 
     @RequestMapping(value = "/profissionais/edit/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String editProfissional(@PathVariable Integer id, RedirectAttributes redirectAttributes, Model model) {
+    public String editProfissional(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("operation","edit");
         return "redirect:/profissionais?idProfissional=" + id;
     }

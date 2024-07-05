@@ -12,28 +12,28 @@
         <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
         <div class="form-signin container align-content-center">
-            <form action="/insereAgendamento" method="post">
-                <h1 class="h3 mb-3 fw-normal text-center">Agendamento</h1>
+            <form th:action="@{'/insereAgendamentos/update/' + ${agendamentoDetails.id_agendamento}}" method="put">
+                <h1 class="h3 mb-3 fw-normal text-center">Editar Agendamento</h1>
 
                 <div class="form-floating">
-                    <input type="hidden" class="form-control" id="floatingInput1" name="status" value="Em Andamento" placeholder="nameexample">
+                    <input th:value="${agendamentoDetails.status}" class="form-control" id="floatingInput1" name="status" placeholder="nameexample">
                     <label for="floatingInput1">Status</label>
                 </div>
 
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput2" name="data" placeholder="nameexample" readonly>
+                    <input th:value="${agendamentoDetails.data}" type="text" class="form-control" id="floatingInput2" name="data" placeholder="nameexample" readonly>
                     <input type="hidden" id="diasDisponibilidade" th:value="${diasDisponibilidade}">
                     <label for="floatingInput2">Data</label>
                     <div id="calendar" class="calendar p-3 mt-2 border rounded"></div>
                 </div>
 
                 <div class="form-floating">
-                    <input type="time" class="form-control" id="floatingInput3" name="horaInicio" placeholder="nameexample">
+                    <input th:value="${agendamentoDetails.horaInicio}" type="time" class="form-control" id="floatingInput3" name="horaInicio" placeholder="nameexample">
                     <label for="floatingInput3">Hora inicio</label>
                 </div>
 
                 <div class="form-floating">
-                    <input type="time" class="form-control" id="floatingInput4" name="horaFim" placeholder="nameexample">
+                    <input th:value="${agendamentoDetails.horaFim}" type="time" class="form-control" id="floatingInput4" name="horaFim" placeholder="nameexample">
                     <label for="floatingInput4">Hora fim</label>
                 </div>
 
@@ -55,7 +55,7 @@
                     <label for="clienteId">Selecione um cliente</label>
                 </div>
                 
-                <button class="btn btn-primary w-100 py-2 text-uppercase" type="submit">Adicionar</button>
+                <button class="btn btn-primary w-100 py-2 text-uppercase" type="submit">editar</button>
             </form>
         </div>
     </main>

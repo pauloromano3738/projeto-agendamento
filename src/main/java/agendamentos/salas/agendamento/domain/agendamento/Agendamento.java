@@ -3,12 +3,10 @@ package agendamentos.salas.agendamento.domain.agendamento;
 import agendamentos.salas.agendamento.domain.cliente.Cliente;
 import agendamentos.salas.agendamento.domain.profissional.Profissional;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id_agendamento")
