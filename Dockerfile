@@ -2,10 +2,10 @@
 FROM openjdk:17-jdk-slim
 
 # Configure o diretório de trabalho dentro do contêiner
-WORKDIR /app-agendamento
+WORKDIR /app
 
 # Copie o arquivo JAR do aplicativo para o diretório de trabalho
-COPY target/agendamento-0.0.1-SNAPSHOT.jar app-agendamento.jar
+COPY target/agendamento-0.0.1-SNAPSHOT.jar app.jar
 
 # Exponha a porta em que a aplicação vai rodar
 EXPOSE 8080
