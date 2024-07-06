@@ -96,7 +96,7 @@ public class AgendamentoController {
 
         Agendamento agendamentoData = new Agendamento(data, profissional, cliente);
         repositoryAgendamento.save(agendamentoData);
-        return "redirect:/consultarAgendamentos";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
+        return "redirect:/agendamentos";  // Você pode redirecionar para a mesma página com uma mensagem de sucesso ou para outra página
     }
 
     @RequestMapping(value = "/insereAgendamentos/update/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
